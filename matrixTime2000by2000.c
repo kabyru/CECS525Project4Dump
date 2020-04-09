@@ -1,5 +1,6 @@
 #include <time.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 int main()
 {
@@ -12,7 +13,7 @@ int main()
     {
         matrix[i] = (int*)malloc(2000*sizeof(int));
     }
-    
+
     for (int i = 0; i < 2000; i++)
     {
         for (int j = 0; j < 2000; j++)
