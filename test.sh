@@ -1,0 +1,11 @@
+#!/bin/bash
+make
+./matrixTime_1
+./matrixTime200by200_1
+./matrixTime2000by2000_1
+./matrixTime_2
+./matrixTime200by200_2
+./matrixTime2000by2000_2
+./matrixTime_3
+./matrixTime200by200_3
+./matrixTime2000by2000_3
