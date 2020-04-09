@@ -7,7 +7,12 @@ int main()
     int sum = 0;
     float totalInSec = 0.0;
 
-    int matrix[2000][2000];
+    int *matrix[2000];
+    for (int i = 0; i < 2000; i++)
+    {
+        matrix[i] = (int*)malloc(2000*sizeof(int));
+    }
+    
     for (int i = 0; i < 2000; i++)
     {
         for (int j = 0; j < 2000; j++)
