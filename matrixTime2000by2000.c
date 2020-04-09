@@ -1,45 +1,35 @@
 #include <time.h>
 #include <stdio.h>
-#include <stdlib.h>
+
+#define SIZE 2000
+int matrix[SIZE][SIZE];
 
 int main()
 {
-    clock_t start_t, end_t;
+    clock_t start, end;
     int sum = 0;
-    float totalInSec = 0.0;
-
-    int *matrix[2000];
-    for (int i = 0; i < 2000; i++)
+    double totalInSec = 0.0;
+    for (int i = 0; i < SIZE; i++)
     {
-        matrix[i] = (int*)malloc(2000*sizeof(int));
-    }
-
-    for (int i = 0; i < 2000; i++)
-    {
-        for (int j = 0; j < 2000; j++)
+        for (int j = 0; j < SIZE; j++)
         {
             matrix[i][j] = i + j;
         }
     }
 
-    start_t = clock();
-    printf("Starting of the program, start_t = %ld\n", start_t);
+    start = clock();
 
-    //Row major, which means i then j
-    for (int i = 0; i < 2000; i++)
+    for (int i = 0; i < SIZE; i++)
     {
-        for (int j = 0; j < 2000; j++)
+        for (int j = 0; j < SIZE; j++)
         {
             sum = sum + matrix[i][j];
         }
     }
-    end_t = clock();
-    printf("End of the big loop, end_t = %ld\n", end_t);
+    end = clock();
 
-    totalInSec = (double) (end_t - start_t) / CLOCKS_PER_SEC;
-    printf("Total time taken by CPU: %f\n", totalInSec);
-    printf("Computed sum: %d\n",sum);
-    printf("Exiting program...\n");
+    totalInSec = (double) (end - start) / CLOCKS_PER_SEC;
+    printf("[Row %dx%d] Time: %f\n",SIZE,SIZE, totalInSec);
 
-    return(0);
+    return 0;
 }

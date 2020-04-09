@@ -1,39 +1,35 @@
 #include <time.h>
 #include <stdio.h>
 
+#define SIZE 20
+int matrix[SIZE][SIZE];
+
 int main()
 {
-    clock_t start_t, end_t;
+    clock_t start, end;
     int sum = 0;
-    float totalInSec = 0.0;
-
-    int matrix[20][20];
-    for (int i = 0; i < 20; i++)
+    double totalInSec = 0.0;
+    for (int i = 0; i < SIZE; i++)
     {
-        for (int j = 0; j < 20; j++)
+        for (int j = 0; j < SIZE; j++)
         {
             matrix[i][j] = i + j;
         }
     }
 
-    start_t = clock();
-    printf("Starting of the program, start_t = %ld\n", start_t);
+    start = clock();
 
-    //Row major, which means i then j
-    for (int j = 0; j < 20; j++)
+    for (int j = 0; j < SIZE; j++)
     {
-        for (int i = 0; i < 20; i++)
+        for (int i = 0; i < SIZE; i++)
         {
             sum = sum + matrix[i][j];
         }
     }
-    end_t = clock();
-    printf("End of the big loop, end_t = %ld\n", end_t);
+    end = clock();
 
-    totalInSec = (double) (end_t - start_t) / CLOCKS_PER_SEC;
-    printf("Total time taken by CPU: %f\n", totalInSec);
-    printf("Computed sum: %d\n",sum);
-    printf("Exiting program...\n");
+    totalInSec = (double) (end - start) / CLOCKS_PER_SEC;
+    printf("[Column %dx%d] Time: %f\n",SIZE,SIZE, totalInSec);
 
-    return(0);
+    return 0;
 }
