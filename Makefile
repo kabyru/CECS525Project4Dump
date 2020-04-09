@@ -1,60 +1,41 @@
 CC = gcc -Wall -Werror -pedantic-errors -g
+BASE := matrixTime matrixTime200by200 matrixTime2000by2000
+BASE += $(BASE:=ColumnMajor)
+BASE_1 := $(BASE:=_1)
+EVERY := $(BASE_1)
+BASE_2 += $(BASE:=_2)
+EVERY += $(BASE_2)
+BASE_3 += $(BASE:=_3)
+EVERY += $(BASE_3)
+EVERY_S := $(EVERY:=.S)
 
-all: matrixTime_1 matrixTime_2 matrixTime_3 matrixTime200by200_1 matrixTime200by200_2 matrixTime200by200_3 matrixTime2000by2000_1 matrixTime2000by2000_2 matrixTime2000by2000_3 matrixTime_1.S matrixTime_2.S matrixTime_3.S matrixTime200by200_1.S matrixTime200by200_2.S matrixTime200by200_3.S matrixTime2000by2000_1.S matrixTime2000by2000_2.S matrixTime2000by2000_3.S 
+all: $(EVERY) $(EVERY_S)
 
-matrixTime_1:
-	$(CC) -O1 matrixTime.c -o matrixTime_1
+%_1: %.c
+	$(CC) -O1 $< -o $@
 
-matrixTime_2:
-	$(CC) -O0 matrixTime.c -o matrixTime_2
+%_2: %.c
+	$(CC) -O0 $< -o $@
 
-matrixTime_3:
-	$(CC) -floop-interchange matrixTime.c -o matrixTime_3
+%_3: %.c
+	$(CC) -floop-interchange $< -o $@
 
-matrixTime200by200_1:
-	$(CC) -O1 matrixTime200by200.c -o matrixTime200by200_1
+%_1.S: %.c
+	$(CC) -O1 -S $< -o $@
 
-matrixTime200by200_2:
-	$(CC) -O0 matrixTime200by200.c -o matrixTime200by200_2
+%_2.S: %.c
+	$(CC) -O0 -S $< -o $@
 
-matrixTime200by200_3:
-	$(CC) -floop-interchange matrixTime200by200.c -o matrixTime200by200_3
-
-matrixTime2000by2000_1:
-	$(CC) -O1 matrixTime2000by2000.c -o matrixTime2000by2000_1
-
-matrixTime2000by2000_2:
-	$(CC) -O0 matrixTime2000by2000.c -o matrixTime2000by2000_2
-
-matrixTime2000by2000_3:
-	$(CC) -floop-interchange matrixTime2000by2000.c -o matrixTime2000by2000_3
-
-matrixTime_1.S:
-	$(CC) -O1 -S matrixTime.c -o matrixTime_1.S
-
-matrixTime_2.S:
-	$(CC) -O0 -S matrixTime.c -o matrixTime_2.S
-
-matrixTime_3.S:
-	$(CC) -floop-interchange -S matrixTime.c -o matrixTime_3.S
-
-matrixTime200by200_1.S:
-	$(CC) -O1 -S matrixTime200by200.c -o matrixTime200by200_1.S
-
-matrixTime200by200_2.S:
-	$(CC) -O0 -S matrixTime200by200.c -o matrixTime200by200_2.S
-
-matrixTime200by200_3.S:
-	$(CC) -floop-interchange -S matrixTime200by200.c -o matrixTime200by200_3.S
-
-matrixTime2000by2000_1.S:
-	$(CC) -O1 -S matrixTime2000by2000.c -o matrixTime2000by2000_1.S
-
-matrixTime2000by2000_2.S:
-	$(CC) -O0 -S matrixTime2000by2000.c -o matrixTime2000by2000_2.S
-
-matrixTime2000by2000_3.S:
-	$(CC) -floop-interchange -S matrixTime2000by2000.c -o matrixTime2000by2000_3.S
+%_3.S: %.c
+	$(CC) -floop-interchange -S $< -o $@
 
 clean:
-	rm -f matrixTime_1 matrixTime_2 matrixTime_3 matrixTime200by200_1 matrixTime200by200_2 matrixTime200by200_3 matrixTime2000by2000_1 matrixTime2000by2000_2 matrixTime2000by2000_3 *.S *~
+	rm -f $(EVERY) $(EVERY_S)
+
+run: $(BASE_1) $(BASE_2) $(BASE_3)
+	@echo O1 Optimized
+	@for ex in $(BASE_1); do ./$$ex; done
+	@echo O0 Optimized
+	@for ex in $(BASE_2); do ./$$ex; done
+	@echo "floop-interchange" Optimized
+	@for ex in $(BASE_3); do ./$$ex; done
