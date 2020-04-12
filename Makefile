@@ -33,7 +33,7 @@ all: $(EVERY) $(EVERY_S)
 	$(CC) -O0 -S $< -o $@
 
 %_3.S: %.c
-	$(CC) -floop-interchange -S $< -o $@
+	$(CC) -O3 -S $< -o $@
 
 %_4.S: %.c
 	$(CC) -O1 -S $< -o $@
