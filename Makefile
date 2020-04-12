@@ -21,10 +21,10 @@ all: $(EVERY) $(EVERY_S)
 	$(CC) -O0 $< -o $@
 
 %_3: %.c
-	$(CC) -floop-interchange $< -o $@
+	$(CC) -O3 $< -o $@
 
 %_4: %.c
-	$(CC) -O1 $< -o $@
+	$(CC) -O0 $< -o $@
 
 %_1.S: %.c
 	$(CC) -O1 -S $< -o $@
